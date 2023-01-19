@@ -4,6 +4,9 @@ import 'package:google_fonts/google_fonts.dart';
 class AppTheme {
   AppTheme._();
 
+  static const playerPageIconsSize = 27.0;
+  static const playerPageHorizontalPadding = 30.0;
+
   static const pink = Color(0xfff7b4c3);
   static const black = Color(0xff000000);
   static const darkGrey = Color(0xff252526);

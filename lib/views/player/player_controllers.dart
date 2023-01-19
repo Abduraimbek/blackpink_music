@@ -1,6 +1,7 @@
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:blackpink_music/controllers/notifiers.dart';
 import 'package:blackpink_music/controllers/playlist_controller.dart';
+import 'package:blackpink_music/utils/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:just_audio/just_audio.dart';
@@ -11,7 +12,12 @@ class PlayerControllers extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 30, right: 30, bottom: 55),
+      padding: const EdgeInsets.only(
+        left: AppTheme.playerPageHorizontalPadding,
+        right: AppTheme.playerPageHorizontalPadding,
+        bottom: 55,
+        top: 20,
+      ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: const [
@@ -105,7 +111,7 @@ class BuildButton extends StatelessWidget {
     super.key,
     required this.onPressed,
     required this.icon,
-    this.size = 27,
+    this.size = AppTheme.playerPageIconsSize,
   });
 
   final VoidCallback onPressed;

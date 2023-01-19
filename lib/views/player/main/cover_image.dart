@@ -1,56 +1,45 @@
 import 'package:blackpink_music/controllers/notifiers.dart';
-import 'package:blackpink_music/controllers/playlist_controller.dart';
-import 'package:blackpink_music/models/song_enum.dart';
+import 'package:blackpink_music/utils/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:logger/logger.dart';
 
-class CoverImage extends ConsumerStatefulWidget {
+class CoverImage extends ConsumerWidget {
   const CoverImage({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _CoverImageState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final theme = Theme.of(context);
+    const borderRadius = 14.0;
 
-class _CoverImageState extends ConsumerState<CoverImage> {
-  late final PageController pageController;
-  late final List<SongEnum> songs;
-  late int currentIndex;
+    final currSong = ref.watch(currentSongProvider);
 
-  @override
-  void initState() {
-    super.initState();
-
-    songs = ref.read(playListControllerProvider);
-
-    currentIndex = ref.read(currentSongIndexProvider) + 1000 * songs.length;
-
-    pageController = PageController(initialPage: currentIndex);
-  }
-
-  @override
-  void dispose() {
-    pageController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return PageView.builder(
-      controller: pageController,
-      onPageChanged: (index) {
-        Logger().e(index);
-        ref
-            .read(playListControllerProvider.notifier)
-            .seekToIndex(index % songs.length);
-      },
-      itemBuilder: (context, index) {
-        final song = songs[index % songs.length];
-
-        return Image.asset(
-          song.album.imagePath,
-        );
-      },
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.only(
+          left: 40,
+          right: 40,
+          bottom: 15,
+          top: 15,
+        ),
+        child: Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(borderRadius),
+            side: BorderSide(
+              width: .3,
+              color: theme.colorScheme.onBackground,
+            ),
+          ),
+          margin: EdgeInsets.zero,
+          elevation: 0,
+          shadowColor: Colors.transparent,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(borderRadius),
+            child: Image.asset(
+              currSong?.album.imagePath ?? AppConstants.imageMusicPlaceholder,
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

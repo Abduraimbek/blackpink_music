@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'cover_image.dart';
+import 'song_name_and_performer.dart';
+import 'function_buttons.dart';
 
 class PlayerMainPage extends StatelessWidget {
   const PlayerMainPage({super.key});
@@ -8,10 +10,16 @@ class PlayerMainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: const [
+      children: [
         Expanded(
-          child: CoverImage(),
+          child: Column(
+            children: const [
+              CoverImage(),
+              SongNameAndPerformer(),
+            ],
+          ),
         ),
+        const FunctionButtons(),
       ],
     );
   }
