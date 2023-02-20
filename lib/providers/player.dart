@@ -1,20 +1,17 @@
 import 'dart:math';
 
 import 'package:blackpink_music/models/song_enum.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:logger/logger.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'player.g.dart';
-
-@Riverpod(keepAlive: true)
-Player player(PlayerRef ref) {
+final playerProvider = Provider<Player>((ref) {
   return Player(
     audioPlayer: AudioPlayer(),
     logger: Logger(),
     random: Random(),
   );
-}
+});
 
 class Player {
   Player({
